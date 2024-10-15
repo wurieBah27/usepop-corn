@@ -2,11 +2,11 @@ import React from "react";
 import { SearchBar } from "./Utils/SearchBar";
 import Logo from "./Utils/Logo";
 
-const Navbar = ({ movies }) => {
+const Navbar = ({ movies, query, setQuery }) => {
   return (
     <nav className="nav-bar">
       <Logo />
-      <SearchBar />
+      <SearchBar query={query} setQuery={setQuery} />
       <NumMovies>{movies.length}</NumMovies>
     </nav>
   );

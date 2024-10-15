@@ -1,34 +1,43 @@
 import React from "react";
-import { useState } from "react";
 
-const SingleWatchedMovie = ({ watched }) => {
+const SingleWatchedMovie = ({ watched, handleDelete }) => {
   return (
     <ul className="list">
-      {watched.map((movie) => (
-        <SingleMovie movie={movie} key={movie.imdbID} />
+      {watched?.map((movie) => (
+        <SingleMovie
+          movie={movie}
+          key={movie.imdbID}
+          handleDelete={handleDelete}
+        />
       ))}
     </ul>
   );
 };
 
-function SingleMovie({ movie }) {
+function SingleMovie({ movie, handleDelete }) {
   return (
     <li>
-      <img src={movie.Poster} alt={`${movie.Title} poster`} />
+      <img src={movie.poster} alt={`${movie.title} poster`} />
       <h3>{movie.Title}</h3>
       <div>
         <p>
           <span>⭐️</span>
-          <span>{movie.imdbRating}</span>
+          <span>{movie.imdbRating?.toFixed(2)}</span>
         </p>
         <p>
           <span>🌟</span>
-          <span>{movie.userRating}</span>
+          <span>{movie.userRating.toFixed(2)} Stars</span>
         </p>
         <p>
           <span>⏳</span>
-          <span>{movie.runtime} min</span>
+          <span>{movie.runtime ? movie.runtime : ""} min</span>
         </p>
+        <button
+          className="btn-delete"
+          onClick={() => handleDelete(movie.imdbID)}
+        >
+          x
+        </button>
       </div>
     </li>
   );

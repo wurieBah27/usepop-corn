@@ -1,9 +1,30 @@
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useRef } from "react";
+import { useKey } from "./useKey";
 
-export const SearchBar = () => {
-  const [query, setQuery] = useState("");
+export const SearchBar = ({ query, setQuery }) => {
+  const inputElRef = useRef(null);
 
+  useKey("Enter", function () {
+    if (document.activeElement === inputElRef) return;
+    inputElRef.current.focus();
+    setQuery("");
+  });
+
+  // useEffect(() => {
+  //   function callBack(e) {
+
+  //     if (e.code === "Enter") {
+
+  //     }
+  //     if (e.code === "Backspace") {
+
+  //     }
+  //   }
+
+  //   document.addEventListener("keydown", callBack);
+
+  //   return () => document.addEventListener("keydown", callBack);
+  // }, [setQuery]);
   return (
     <input
       className="search"
@@ -11,6 +32,7 @@ export const SearchBar = () => {
       placeholder="Search movies..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
+      ref={inputElRef}
     />
   );
 };
